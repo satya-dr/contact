@@ -17,15 +17,6 @@ body {
     color: var(--text-dark);
 }
 
-/* ===== Header ===== */
-header {
-    background: white;
-    position: sticky;
-    top: 0;
-    z-index: 100;
-    box-shadow: 0 2px 6px rgba(0,0,0,.06);
-}
-
 /* ===== Main ===== */
 main {
     max-width: 1200px;
@@ -33,19 +24,61 @@ main {
     padding: 2.5rem 1.5rem;
 }
 
-/* ===== Page Header ===== */
+/* ===== Header ===== */
 .page-header {
     text-align: center;
-    margin-bottom: 2.5rem;
+    margin-bottom: 2rem;
 }
-
 .page-header h1 {
     font-size: 2.2rem;
     font-weight: 800;
 }
-
 .page-header p {
     color: var(--text-light);
+}
+
+/* ===== Top Actions ===== */
+.top-actions {
+    display: flex;
+    justify-content: center;
+    gap: 14px;
+    flex-wrap: wrap;
+    margin-bottom: 2rem;
+}
+
+.action-btn {
+    padding: 10px 18px;
+    border-radius: 30px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    cursor: pointer;
+    border: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    transition: .25s;
+    box-shadow: 0 4px 10px rgba(0,0,0,.1);
+}
+
+.btn-export {
+    background: linear-gradient(135deg, #22c55e, #16a34a);
+    color: #fff;
+}
+.btn-download {
+    background: linear-gradient(135deg, #3b82f6, #2563eb);
+    color: #fff;
+}
+.btn-import {
+    background: linear-gradient(135deg, #f59e0b, #d97706);
+    color: #fff;
+}
+
+.action-btn:hover {
+    transform: translateY(-2px);
+}
+
+.import-input {
+    display: none;
 }
 
 /* ===== Search ===== */
@@ -54,7 +87,6 @@ main {
     justify-content: center;
     margin-bottom: 2rem;
 }
-
 .search-bar input {
     width: 100%;
     max-width: 420px;
@@ -62,13 +94,6 @@ main {
     border-radius: 50px;
     border: 1px solid #ddd;
     font-size: 1rem;
-    outline: none;
-    transition: .3s;
-}
-
-.search-bar input:focus {
-    border-color: var(--primary);
-    box-shadow: 0 0 0 4px rgba(0,123,255,.12);
 }
 
 /* ===== Grid ===== */
@@ -86,20 +111,19 @@ main {
     text-align: center;
     transition: .35s;
     border: 1px solid #e5e7eb;
+    position: relative;
 }
 
 .card:hover {
-    transform: translateY(-8px);
+    transform: translateY(-6px);
     box-shadow: var(--card-shadow);
 }
 
-/* ===== Banner ===== */
 .card-banner {
     height: 90px;
     background: linear-gradient(135deg, #007bff, #00c6ff);
 }
 
-/* ===== Avatar ===== */
 .card-avatar {
     width: 110px;
     height: 110px;
@@ -109,7 +133,6 @@ main {
     object-fit: cover;
 }
 
-/* ===== Content ===== */
 .card-content {
     padding: 18px 22px 26px;
 }
@@ -117,15 +140,6 @@ main {
 .contact-name {
     font-size: 1.25rem;
     font-weight: 700;
-    margin-top: 10px;
-}
-
-.contact-role {
-    font-size: .75rem;
-    letter-spacing: 1.4px;
-    text-transform: uppercase;
-    color: var(--primary);
-    margin-top: 4px;
 }
 
 /* ===== Actions ===== */
@@ -133,8 +147,8 @@ main {
     display: flex;
     justify-content: center;
     gap: 10px;
-    flex-wrap: wrap;
     margin-top: 18px;
+    flex-wrap: wrap;
 }
 
 .btn {
@@ -142,45 +156,35 @@ main {
     border-radius: 30px;
     font-size: .85rem;
     font-weight: 600;
-    cursor: pointer;
     text-decoration: none;
-    transition: .25s;
+    cursor: pointer;
+    border: 1px solid #d1d5db;
+    background: #fff;
+    color: var(--text-dark);
 }
 
 .btn-primary {
     background: var(--primary);
     color: white;
-    border: none;
-}
-
-.btn-primary:hover {
-    background: var(--primary-dark);
-}
-
-.btn-outline {
-    border: 1px solid #d1d5db;
-    color: var(--text-dark);
+    border-color: var(--primary);
 }
 
 .btn-outline:hover {
     background: #f1f5f9;
 }
 
-/* ===== Empty State ===== */
-.empty {
-    grid-column: 1/-1;
-    text-align: center;
-    padding: 3rem;
-    background: white;
-    border-radius: 16px;
-    color: var(--text-light);
+/* ===== Block Button ===== */
+.btn-danger {
+    background: #fee2e2;
+    color: #dc2626;
+    border: 1px solid #fecaca;
 }
 
-/* ===== Favorite Floating Button ===== */
-.card {
-    position: relative; /* IMPORTANT for absolute positioning */
+.btn-danger:hover {
+    background: #fecaca;
 }
 
+/* ===== Favourite Button ===== */
 .favorite-form {
     position: absolute;
     top: 12px;
@@ -197,25 +201,16 @@ main {
     font-size: 0.75rem;
     font-weight: 600;
     cursor: pointer;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+    box-shadow: 0 4px 10px rgba(0,0,0,.2);
     display: flex;
     align-items: center;
     gap: 4px;
-    transition: all .25s ease;
-}
-
-.favorite-btn::before {
-    font-size: 0.8rem;
+    transition: .25s;
 }
 
 .favorite-btn:hover {
     transform: scale(1.05);
 }
-
-.favorite-btn:active {
-    transform: scale(0.95);
-}
-
 </style>
 </head>
 
@@ -223,9 +218,22 @@ main {
 <%- include('../partials/nav') %>
 
 <main>
+
+    <!-- Page Header -->
     <div class="page-header">
         <h1>Contact Directory</h1>
         <p>Manage your personal and professional connections</p>
+    </div>
+
+    <!-- Top Actions -->
+    <div class="top-actions">
+        <button class="action-btn btn-export" onclick="exportContacts()">📤 Export</button>
+        <button class="action-btn btn-download" onclick="downloadContacts()">⬇ Download</button>
+
+        <label class="action-btn btn-import">
+            📥 Import
+            <input class="import-input" onclick="importContacts()">
+        </label>
     </div>
 
     <!-- Search -->
@@ -235,74 +243,61 @@ main {
 
     <!-- Cards -->
     <div class="grid" id="contactsGrid">
-        <% if (contacts.length > 0) { %>
-            <% contacts.forEach(contact => { if (!contact) return; %>
-                <article class="card"
-    data-name="<%= contact.name.toLowerCase() %>"
-    data-email="<%= contact.email.toLowerCase() %>">
+        <% contacts.forEach(contact => { %>
+        <article class="card"
+            data-name="<%= contact.name.toLowerCase() %>"
+            data-email="<%= contact.email.toLowerCase() %>">
 
-    <!-- Favourite top-left -->
-   <%- include('../partials/favourite', { contact: contact }) %>
+            <!-- Favourite -->
+            <%- include('../partials/favourite', { contact: contact }) %>
 
+            <div class="card-banner"></div>
 
-    <div class="card-banner"></div>
+            <img class="card-avatar"
+                src="https://ui-avatars.com/api/?name=<%= contact.name %>&background=random&size=300">
 
-    <img class="card-avatar"
-         src="https://ui-avatars.com/api/?name=<%= contact.name %>&background=random&size=300">
+            <div class="card-content">
+                <div class="contact-name"><%= contact.name %></div>
 
-    <div class="card-content">
-        <div class="contact-name"><%= contact.name %></div>
-        <div class="contact-role">Contact</div>
+                <div class="card-actions">
+                    <a href="tel:<%= contact.phone %>" class="btn btn-primary">📞 Call</a>
+                    <a href="mailto:<%= contact.email %>" class="btn">✉ Email</a>
+                    <a href="/contacts/<%= contact.id %>" class="btn">👁 Details</a>
 
-        <div class="card-actions">
-            <a href="tel:<%= contact.phone %>" class="btn btn-primary">📞 Call</a>
-            <a href="mailto:<%= contact.email %>" class="btn btn-outline">✉ Email</a>
-            <a href="/contacts/<%= contact.id %>" class="btn btn-outline">👁 Details</a>
-        </div>
+                    <!-- Block -->
+                    <button class="btn btn-danger"
+                        onclick="blockContact('<%= contact.name %>')">
+                        🚫 Block
+                    </button>
+                </div>
+            </div>
+        </article>
+        <% }) %>
     </div>
-</article>
 
-            <% }) %>
-        <% } else { %>
-            <div class="empty">No contacts found</div>
-        <% } %>
-    </div>
 </main>
 
+<%- include('../partials/footer') %>
+
 <script>
-const input = document.getElementById("searchInput");
-const cards = document.querySelectorAll(".card");
-const grid = document.getElementById("contactsGrid");
+function exportContacts() {
+    alert("Export feature will be added later 🙂");
+}
 
-input.addEventListener("input", () => {
-    const val = input.value.toLowerCase();
-    let visible = 0;
+function downloadContacts() {
+    alert("Download feature will be added later 🙂");
+}
 
-    cards.forEach(card => {
-        const name = card.dataset.name;
-        const email = card.dataset.email;
+function importContacts() {
+    alert("Import feature will be added later 🙂");
+}
 
-        if (name.includes(val) || email.includes(val)) {
-            card.style.display = "block";
-            visible++;
-        } else {
-            card.style.display = "none";
-        }
-    });
-
-    if (!visible) {
-        if (!document.querySelector(".empty")) {
-            grid.insertAdjacentHTML(
-                "beforeend",
-                `<div class="empty">No contacts match your search</div>`
-            );
-        }
-    } else {
-        document.querySelector(".empty")?.remove();
+function blockContact(name) {
+    if (confirm(`Are you sure you want to block ${name}?`)) {
+        alert(name + " has been blocked (backend later 😄)");
     }
-});
+}
 </script>
 
 </body>
 </html>
-

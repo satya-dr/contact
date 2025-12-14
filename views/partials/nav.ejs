@@ -1,16 +1,153 @@
+<style>
+/* ===== Header / Navbar ===== */
+header {
+    background: #ffffff;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    box-shadow: 0 2px 6px rgba(0,0,0,.06);
+}
+
+nav {
+    max-width: 1200px;
+    margin: auto;
+    padding: 1rem 1.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+/* ===== Logo ===== */
+.logo {
+    font-size: 1.5rem;
+    font-weight: 800;
+    color: #007bff;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+/* ===== Nav Links ===== */
+.nav-links {
+    list-style: none;
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    margin: 0;
+    padding: 0;
+}
+
+.nav-links li {
+    position: relative;
+}
+
+/* Links */
+.nav-links a {
+    padding: 8px 16px;
+    border-radius: 20px;
+    color: #2c2f33;
+    font-size: .9rem;
+    font-weight: 600;
+    text-decoration: none;
+    transition: all .25s ease;
+}
+
+.nav-links a:hover {
+    background: #f1f5f9;
+}
+
+/* 🔥 Active Page */
+.nav-links a.active {
+    background: linear-gradient(135deg, #007bff, #00c6ff);
+    color: #ffffff;
+    box-shadow: 0 4px 10px rgba(0,123,255,.3);
+}
+
+/* ===== Dropdown ===== */
+.dropdown .dropbtn {
+    cursor: pointer;
+}
+
+.dropdown-menu {
+    position: absolute;
+    top: 42px;
+    right: 0;
+    background: #ffffff;
+    border-radius: 14px;
+    box-shadow: 0 10px 25px rgba(0,0,0,.12);
+    min-width: 160px;
+    display: none;
+    flex-direction: column;
+    overflow: hidden;
+    z-index: 999;
+}
+
+.dropdown-menu li a {
+    padding: 10px 14px;
+    display: block;
+    font-size: .85rem;
+    font-weight: 500;
+    border-radius: 0;
+}
+
+.dropdown-menu li a:hover {
+    background: #f1f5f9;
+}
+
+/* Show dropdown */
+.dropdown:hover .dropdown-menu {
+    display: block;
+}
+
+/* ===== Responsive ===== */
+@media (max-width: 768px) {
+    nav {
+        flex-wrap: wrap;
+        gap: 10px;
+    }
+
+    .nav-links {
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+}
+</style>
+
 <header>
     <nav>
+        <!-- Logo -->
         <a href="/" class="logo">
-            <span style="font-size: 24px;">👤</span> MyContacts
+            <span style="font-size:24px;">👤</span> MyContacts
         </a>
 
+        <!-- Navigation -->
         <ul class="nav-links">
-            <li><a href="/" class="active">All Contacts</a></li>
-            <li><a href="/favourites">⭐ Favourites</a></li>
-            <li><a href="/admin/add-contact">Add Contact</a></li>
-            <li><a href="/block-list">Block List</a></li>
+            <li>
+                <a href="/" class="<%= activePage === 'contacts' ? 'active' : '' %>">
+                    All Contacts
+                </a>
+            </li>
 
-            <!-- AUTH DROPDOWN -->
+            <li>
+                <a href="/favourites" class="<%= activePage === 'favourites' ? 'active' : '' %>">
+                    ⭐ Favourites
+                </a>
+            </li>
+
+            <li>
+                <a href="/admin/add-contact" class="<%= activePage === 'add' ? 'active' : '' %>">
+                    Add Contact
+                </a>
+            </li>
+
+            <li>
+                <a href="/block-list" class="<%= activePage === 'block' ? 'active' : '' %>">
+                    Block List
+                </a>
+            </li>
+
+            <!-- Account Dropdown -->
             <li class="dropdown">
                 <a href="#" class="dropbtn">Account ▾</a>
                 <ul class="dropdown-menu">
