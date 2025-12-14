@@ -1,0 +1,163 @@
+<%- include('../partials/head')%>
+
+<style>
+    :root {
+        --primary-color: #007bff;
+        --primary-hover: #0056b3;
+        --text-dark: #343a40;
+        --text-light: #6c757d;
+        --bg-color: #f0f2f5;
+        --card-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
+
+    body {
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        margin: 0;
+        padding: 0;
+        color: var(--text-dark);
+        background-color: var(--bg-color);
+    }
+
+    main {
+        padding: 2rem 5%;
+        max-width: 650px;
+        margin: 0 auto;
+    }
+
+    .form-card {
+        background: white;
+        padding: 2.5rem;
+        border-radius: 14px;
+        box-shadow: var(--card-shadow);
+        border: 1px solid #e1e4e8;
+    }
+
+    h1 {
+        text-align: center;
+        margin-bottom: 2rem;
+        font-size: 1.9rem;
+    }
+
+    .form-control {
+        margin-bottom: 1.4rem;
+    }
+
+    label {
+        display: block;
+        margin-bottom: 0.4rem;
+        font-weight: 600;
+    }
+
+    input, textarea {
+        width: 100%;
+        padding: 12px 14px;
+        border: 2px solid #e9ecef;
+        border-radius: 8px;
+        font-size: 1rem;
+        box-sizing: border-box;
+        transition: 0.3s;
+        font-family: inherit;
+    }
+
+    textarea {
+        resize: vertical;
+        min-height: 80px;
+    }
+
+    input:focus, textarea:focus {
+        outline: none;
+        border-color: var(--primary-color);
+        background-color: #f8fbff;
+    }
+
+    .hint {
+        font-size: 0.8rem;
+        color: var(--text-light);
+        margin-top: 4px;
+    }
+
+    button {
+        width: 100%;
+        padding: 14px;
+        background-color: var(--primary-color);
+        color: white;
+        border: none;
+        border-radius: 8px;
+        font-size: 1.1rem;
+        font-weight: 700;
+        cursor: pointer;
+        transition: 0.3s;
+        margin-top: 10px;
+    }
+
+    button:hover {
+        background-color: var(--primary-hover);
+        transform: translateY(-1px);
+    }
+
+    .back-link {
+        display: block;
+        text-align: center;
+        margin-top: 1.5rem;
+        color: var(--text-light);
+        text-decoration: none;
+        font-size: 0.9rem;
+    }
+
+    .back-link:hover {
+        color: var(--primary-color);
+        text-decoration: underline;
+    }
+</style>
+</head>
+
+<body>
+<%- include('../partials/nav') %>
+
+<main>
+    <div class="form-card">
+        <h1>Create New Contact</h1>
+
+        <form action="/admin/add-contact" method="POST">
+
+            <!-- Name (Required) -->
+            <div class="form-control">
+                <label for="name">Full Name *</label>
+                <input type="text" name="name" id="name" placeholder="Ex: Rahul Roy" required>
+            </div>
+
+            <!-- Phone (Required) -->
+            <div class="form-control">
+                <label for="phone">Phone Number *</label>
+                <input type="text" name="phone" id="phone" placeholder="Ex: +91 98765 43210" required>
+            </div>
+
+            <!-- Email (Optional) -->
+            <div class="form-control">
+                <label for="email">Email Address</label>
+                <input type="email" name="email" id="email" placeholder="Ex: rahul@example.com">
+                <div class="hint">Optional</div>
+            </div>
+
+            <!-- Date of Birth (Optional) -->
+            <div class="form-control">
+                <label for="dob">Date of Birth</label>
+                <input type="date" name="dob" id="dob">
+                <div class="hint">Optional</div>
+            </div>
+
+            <!-- Address (Optional) -->
+            <div class="form-control">
+                <label for="address">Address</label>
+                <textarea name="address" id="address" placeholder="Enter address"></textarea>
+                <div class="hint">Optional</div>
+            </div>
+
+            <button type="submit">Save Contact</button>
+        </form>
+
+        <a href="/" class="back-link">← Cancel and go back</a>
+    </div>
+</main>
+</body>
+</html>

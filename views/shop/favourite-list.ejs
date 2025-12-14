@@ -1,0 +1,261 @@
+<%- include('../partials/head') %>
+
+<style>
+/* ===== Root ===== */
+:root {
+  --primary: #2563eb;
+  --primary-dark: #1e40af;
+  --bg: #f3f4f6;
+  --text-dark: #1f2937;
+  --text-light: #6b7280;
+  --card-shadow: 0 10px 25px rgba(0,0,0,.08);
+}
+
+body {
+  margin: 0;
+  font-family: "Segoe UI", sans-serif;
+  background: var(--bg);
+  color: var(--text-dark);
+}
+
+/* ===== Container ===== */
+.fav-container {
+  max-width: 1200px;
+  margin: 40px auto 60px;
+  padding: 0 20px;
+}
+
+/* ===== Header ===== */
+.fav-header {
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.fav-header h2 {
+  font-size: 2.6rem;
+  font-weight: 800;
+  color: var(--primary);
+}
+
+.fav-header p {
+  margin-top: 6px;
+  color: var(--text-light);
+}
+
+/* ===== Grid ===== */
+.fav-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 28px;
+}
+
+/* ===== Card ===== */
+.fav-card {
+  background: white;
+  border-radius: 22px;
+  overflow: hidden;
+  box-shadow: var(--card-shadow);
+  transition: .3s ease;
+}
+
+.fav-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 18px 35px rgba(0,0,0,.12);
+}
+
+/* ===== Avatar ===== */
+.fav-avatar {
+  position: relative;
+}
+
+.fav-avatar img {
+  width: 100%;
+  height: 220px;
+  object-fit: cover;
+}
+
+/* ===== Badge ===== */
+.fav-badge {
+  position: absolute;
+  top: 14px;
+  left: 14px;
+  background: #facc15;
+  color: #111827;
+  padding: 6px 14px;
+  border-radius: 999px;
+  font-size: .75rem;
+  font-weight: 700;
+  box-shadow: 0 4px 10px rgba(0,0,0,.2);
+}
+
+/* ===== Content ===== */
+.fav-content {
+  padding: 22px 24px 26px;
+}
+
+.fav-content h3 {
+  font-size: 1.3rem;
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+
+.fav-info {
+  font-size: .9rem;
+  color: var(--text-light);
+  margin-bottom: 18px;
+}
+
+.fav-info p {
+  margin: 4px 0;
+}
+
+/* ===== Actions ===== */
+.fav-actions {
+  display: flex;
+  gap: 12px;
+}
+
+.fav-actions a {
+  flex: 1;
+  text-align: center;
+  padding: 10px;
+  border-radius: 14px;
+  font-size: .85rem;
+  font-weight: 600;
+  text-decoration: none;
+  background: var(--primary);
+  color: white;
+  transition: .25s;
+}
+
+.fav-actions a:hover {
+  background: var(--primary-dark);
+}
+
+.fav-actions button {
+  background: #fee2e2;
+  border: none;
+  border-radius: 14px;
+  padding: 0 16px;
+  font-size: 1.2rem;
+  cursor: pointer;
+  color: #dc2626;
+  transition: .25s;
+}
+
+.fav-actions button:hover {
+  background: #fecaca;
+}
+
+/* ===== Empty ===== */
+.fav-empty {
+  text-align: center;
+  margin-top: 120px;
+}
+
+.fav-empty .emoji {
+  font-size: 4rem;
+  margin-bottom: 10px;
+}
+
+.fav-empty h3 {
+  font-size: 2rem;
+  margin-bottom: 6px;
+}
+
+.fav-empty p {
+  color: var(--text-light);
+  margin-bottom: 24px;
+}
+
+.fav-empty a {
+  display: inline-block;
+  background: var(--primary);
+  color: white;
+  padding: 12px 28px;
+  border-radius: 16px;
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.fav-empty a:hover {
+  background: var(--primary-dark);
+}
+
+/* ===== Responsive ===== */
+@media (max-width: 600px) {
+  .fav-header h2 {
+    font-size: 2rem;
+  }
+}
+</style>
+</head>
+
+<body>
+<%- include('../partials/nav') %>
+
+<main class="fav-container">
+
+  <div class="fav-header">
+    <h2>⭐ Favourite Contacts</h2>
+    <p>Your most important connections in one place</p>
+  </div>
+
+  <% if (favourites.length > 0) { %>
+
+    <div class="fav-grid">
+
+      <% favourites.forEach(contact => { if (!contact) return; %>
+
+        <div class="fav-card">
+
+          <div class="fav-avatar">
+            <img
+              src="https://ui-avatars.com/api/?name=<%= contact.name %>&background=random&size=400"
+              alt="<%= contact.name %>">
+          </div>
+
+          <div class="fav-content">
+            <h3><%= contact.name %></h3>
+
+            <div class="fav-info">
+              <p>📞 <%= contact.phone %></p>
+              <% if (contact.email) { %>
+                <p>✉ <%= contact.email %></p>
+              <% } %>
+              <% if (contact.address) { %>
+                <p>📍 <%= contact.address %></p>
+              <% } %>
+            </div>
+
+            <div class="fav-actions">
+              <a href="/contacts/<%= contact.id %>">View Details</a>
+
+              <form action="/favourites" method="post">
+                <input type="hidden" name="contactId" value="<%= contact.id %>">
+                <button title="Remove Favourite">❌</button>
+              </form>
+            </div>
+          </div>
+
+        </div>
+
+      <% }) %>
+
+    </div>
+
+  <% } else { %>
+
+    <div class="fav-empty">
+      <div class="emoji">😕</div>
+      <h3>No Favourite Contacts</h3>
+      <p>Add contacts to favourites to see them here</p>
+      <a href="/">Go to Contacts</a>
+    </div>
+
+  <% } %>
+
+</main>
+
+</body>
+</html>

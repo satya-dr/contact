@@ -1,0 +1,47 @@
+<style>
+/* ===== Favorite Button ===== */
+.favorite-form {
+    display: flex;
+    justify-content: center;
+    margin-top: 14px;
+}
+
+.favorite-btn {
+    background: linear-gradient(135deg, #ff0062, #e918ae);
+    color: #ececec;
+    border: none;
+    padding: 7px 16px;          /* same height as other buttons */
+    border-radius: 30px;
+    font-size: 0.85rem;         /* MATCH card buttons */
+    font-weight: 600;
+    cursor: pointer;
+    box-shadow: 0 3px 8px rgba(0,0,0,0.15);
+    transition: all 0.25s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    line-height: 1;
+}
+
+.favorite-btn::before {
+    font-size: 0.9rem;
+}
+
+.favorite-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 14px rgba(0,0,0,0.2);
+}
+
+.favorite-btn:active {
+    transform: scale(0.95);
+}
+
+</style>
+
+<form action="/favourites" method="post" class="favorite-form">
+    <input type="hidden" name="contactId" value="<%= contact.id %>">
+    <button type="submit" class="favorite-btn">
+        ⭐ Favourite
+    </button>
+</form>
+

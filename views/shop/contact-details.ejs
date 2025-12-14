@@ -1,0 +1,190 @@
+<%- include('../partials/head') %>
+
+<style>
+body{
+  font-family:'Segoe UI',sans-serif;
+  background:#f0f2f5;
+  margin:0;
+}
+main{
+  max-width:650px;
+  margin:3rem auto;
+  padding:2rem;
+}
+.card{
+  background:#fff;
+  border-radius:16px;
+  box-shadow:0 6px 16px rgba(0,0,0,.12);
+  overflow:hidden;
+  text-align:center;
+}
+.card-banner{
+  height:110px;
+  background:linear-gradient(135deg,#007bff,#00c6ff);
+}
+.card-avatar{
+  width:130px;
+  height:130px;
+  border-radius:50%;
+  border:5px solid #fff;
+  margin-top:-65px;
+}
+.card-content{
+  padding:25px;
+}
+.card-content h2{
+  margin:10px 0;
+}
+.info-list{
+  margin-top:15px;
+  text-align:left;
+}
+.info-item{
+  background:#f8f9fa;
+  padding:10px 14px;
+  border-radius:10px;
+  margin-bottom:10px;
+  font-size:.95rem;
+  color:#444;
+}
+.info-item span{
+  font-weight:600;
+  margin-right:6px;
+}
+.actions{
+  margin-top:25px;
+  display:flex;
+  flex-wrap:wrap;
+  justify-content:center;
+  gap:10px;
+}
+.btn{
+  padding:8px 18px;
+  border-radius:20px;
+  border:1px solid #ddd;
+  background:#fff;
+  cursor:pointer;
+  text-decoration:none;
+  color:#333;
+  font-size:.9rem;
+}
+.btn-primary{
+  background:#007bff;
+  color:#fff;
+  border-color:#007bff;
+}
+.btn-primary:hover{
+  background:#0056b3;
+}
+.btn.disabled{
+  opacity:.5;
+  pointer-events:none;
+}
+
+
+/* ===== Floating Favourite (Details Card) ===== */
+.card{
+  position: relative; /* required */
+}
+
+.favorite-form{
+  position: absolute;
+  top: 14px;
+  left: 14px;
+  z-index: 10;
+}
+
+.favorite-btn{
+  background: linear-gradient(135deg,#ffcc00,#ff9800);
+  color:#333;
+  border:none;
+  padding:6px 10px;
+  border-radius:50px;
+  font-size:.75rem;
+  font-weight:600;
+  cursor:pointer;
+  display:flex;
+  align-items:center;
+  gap:4px;
+  box-shadow:0 4px 10px rgba(0,0,0,.2);
+  transition:.25s;
+}
+
+.favorite-btn::before{
+  font-size:.8rem;
+}
+
+.favorite-btn:hover{
+  transform: scale(1.05);
+}
+
+.favorite-btn:active{
+  transform: scale(.95);
+}
+
+
+</style>
+</head>
+
+<body>
+<%- include('../partials/nav') %>
+
+<main>
+  <div class="card">
+
+  <!-- Favourite top-left -->
+  <%- include('../partials/favourite') %>
+
+  <div class="card-banner"></div>
+
+  <img
+    class="card-avatar"
+    src="https://ui-avatars.com/api/?name=<%= contact.name %>&background=random&size=200"
+    alt="Avatar"
+  >
+
+  <div class="card-content">
+    <h2><%= contact.name %></h2>
+
+      <div class="info-list">
+        <div class="info-item">
+          <span>📞 Phone:</span> <%= contact.phone %>
+        </div>
+
+        <% if (contact.email) { %>
+          <div class="info-item">
+            <span>✉ Email:</span> <%= contact.email %>
+          </div>
+        <% } %>
+
+        <div class="info-item">
+          <span>🎂 DOB:</span>
+          <%= contact.dob ? new Date(contact.dob).toDateString() : 'Not provided' %>
+        </div>
+
+        <% if (contact.address) { %>
+          <div class="info-item">
+            <span>📍 Address:</span> <%= contact.address %>
+          </div>
+        <% } %>
+      </div>
+
+      <div class="actions">
+        <a href="tel:<%= contact.phone %>" class="btn btn-primary">Call</a>
+
+        <% if (contact.email) { %>
+          <a href="mailto:<%= contact.email %>" class="btn">Email</a>
+        <% } else { %>
+          <span class="btn disabled">Email</span>
+        <% } %>
+
+        <a href="/" class="btn">⬅ Back</a>
+        <%- include('../partials/favourite') %>
+        <a href="#" class="btn">🚫 Block</a>
+      </div>
+    </div>
+  </div>
+</main>
+
+</body>
+</html>
