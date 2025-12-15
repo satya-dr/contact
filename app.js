@@ -20,7 +20,6 @@ app.use(shopRoutes);
 
 app.use(errorController.get404);
 
-/* 🔥 IMPORTANT FOR DEPLOY */
 const PORT = process.env.PORT || 3001;
 
 app.listen(PORT, () => {

@@ -17,14 +17,12 @@ body {
     color: var(--text-dark);
 }
 
-/* ===== Main ===== */
 main {
     max-width: 1200px;
     margin: auto;
     padding: 2.5rem 1.5rem;
 }
 
-/* ===== Header ===== */
 .page-header {
     text-align: center;
     margin-bottom: 2rem;
@@ -37,73 +35,12 @@ main {
     color: var(--text-light);
 }
 
-/* ===== Top Actions ===== */
-.top-actions {
-    display: flex;
-    justify-content: center;
-    gap: 14px;
-    flex-wrap: wrap;
-    margin-bottom: 2rem;
-}
-
-.action-btn {
-    padding: 10px 18px;
-    border-radius: 30px;
-    font-size: 0.85rem;
-    font-weight: 600;
-    cursor: pointer;
-    border: none;
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-    transition: .25s;
-    box-shadow: 0 4px 10px rgba(0,0,0,.1);
-}
-
-.btn-export {
-    background: linear-gradient(135deg, #22c55e, #16a34a);
-    color: #fff;
-}
-.btn-download {
-    background: linear-gradient(135deg, #3b82f6, #2563eb);
-    color: #fff;
-}
-.btn-import {
-    background: linear-gradient(135deg, #f59e0b, #d97706);
-    color: #fff;
-}
-
-.action-btn:hover {
-    transform: translateY(-2px);
-}
-
-.import-input {
-    display: none;
-}
-
-/* ===== Search ===== */
-.search-bar {
-    display: flex;
-    justify-content: center;
-    margin-bottom: 2rem;
-}
-.search-bar input {
-    width: 100%;
-    max-width: 420px;
-    padding: 12px 18px;
-    border-radius: 50px;
-    border: 1px solid #ddd;
-    font-size: 1rem;
-}
-
-/* ===== Grid ===== */
 .grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
     gap: 26px;
 }
 
-/* ===== Card ===== */
 .card {
     background: white;
     border-radius: 18px;
@@ -142,13 +79,17 @@ main {
     font-weight: 700;
 }
 
-/* ===== Actions ===== */
 .card-actions {
     display: flex;
+    flex-direction: row;         
     justify-content: center;
+    align-items: center;
     gap: 10px;
     margin-top: 18px;
-    flex-wrap: wrap;
+    flex-wrap: nowrap;           
+}
+.card-actions .btn {
+    white-space: nowrap;       
 }
 
 .btn {
@@ -169,48 +110,67 @@ main {
     border-color: var(--primary);
 }
 
-.btn-outline:hover {
-    background: #f1f5f9;
-}
-
-/* ===== Block Button ===== */
-.btn-danger {
-    background: #fee2e2;
-    color: #dc2626;
-    border: 1px solid #fecaca;
-}
-
-.btn-danger:hover {
-    background: #fecaca;
-}
-
-/* ===== Favourite Button ===== */
 .favorite-form {
     position: absolute;
     top: 12px;
     left: 12px;
-    z-index: 5;
 }
 
-.favorite-btn {
-    background: linear-gradient(135deg, #ffcc00, #ff9800);
-    color: #333;
+.menu-wrapper {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    z-index: 10;
+}
+
+.menu-btn {
+    background: rgba(255,255,255,.95);
     border: none;
+    border-radius: 50%;
     padding: 6px 10px;
-    border-radius: 50px;
-    font-size: 0.75rem;
-    font-weight: 600;
     cursor: pointer;
-    box-shadow: 0 4px 10px rgba(0,0,0,.2);
-    display: flex;
-    align-items: center;
-    gap: 4px;
-    transition: .25s;
+    font-size: 18px;
+    box-shadow: 0 4px 10px rgba(0,0,0,.15);
 }
 
-.favorite-btn:hover {
-    transform: scale(1.05);
+.menu-dropdown {
+    position: absolute;
+    top: 38px;
+    right: 0;
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: 0 10px 25px rgba(0,0,0,.15);
+    overflow: hidden;
+    display: none;
+    min-width: 140px;
 }
+
+.menu-dropdown a,
+.menu-dropdown button {
+    display: block;
+    width: 100%;
+    padding: 10px 14px;
+    background: none;
+    border: none;
+    text-align: left;
+    font-size: .9rem;
+    cursor: pointer;
+}
+
+.menu-dropdown a:hover,
+.menu-dropdown button:hover {
+    background: #f1f5f9;
+}
+
+.menu-dropdown .danger {
+    color: #dc2626;
+}
+@media (max-width: 420px) {
+    .card-actions {
+        flex-wrap: wrap;         
+    }
+}
+
 </style>
 </head>
 
@@ -219,42 +179,48 @@ main {
 
 <main>
 
-    <!-- Page Header -->
     <div class="page-header">
         <h1>Contact Directory</h1>
         <p>Manage your personal and professional connections</p>
     </div>
 
-    <!-- Top Actions -->
-    <div class="top-actions">
-        <button class="action-btn btn-export" onclick="exportContacts()">📤 Export</button>
-        <button class="action-btn btn-download" onclick="downloadContacts()">⬇ Download</button>
-
-        <label class="action-btn btn-import">
-            📥 Import
-            <input class="import-input" onclick="importContacts()">
-        </label>
-    </div>
-
-    <!-- Search -->
-    <div class="search-bar">
-        <input type="text" id="searchInput" placeholder="Search by name or email...">
-    </div>
-
-    <!-- Cards -->
-    <div class="grid" id="contactsGrid">
+    <div class="grid">
         <% contacts.forEach(contact => { %>
-        <article class="card"
-            data-name="<%= contact.name.toLowerCase() %>"
-            data-email="<%= contact.email.toLowerCase() %>">
+        <article class="card">
 
-            <!-- Favourite -->
-            <%- include('../partials/favourite', { contact: contact }) %>
+            <%- include('../partials/favourite', { contact }) %>
+
+            <div class="menu-wrapper">
+                <button class="menu-btn"
+                        onclick="toggleMenu(event, '<%= contact.id %>')">
+                    ⋮
+                </button>
+
+                <div class="menu-dropdown" id="menu-<%= contact.id %>">
+                    <a style="text-decoration: none; font-weight: 800;" href="/admin/edit-contact/<%= contact.id %>?editing=true">
+                        ✏️ Edit
+                    </a>
+                    <button class="danger"
+                            onclick="blockContact('<%= contact.name %>')">
+                        🚫 Block
+                    </button>
+                    <form action="/admin/delete-contact/<%= contact.id %>"
+      method="POST"
+      onsubmit="return confirm('Are you sure you want to delete this contact?');"
+      style="display:inline;">
+
+  <button type="submit" class="btn btn-danger">
+    🗑 Delete
+  </button>
+</form>
+
+                </div>
+            </div>
 
             <div class="card-banner"></div>
 
             <img class="card-avatar"
-                src="https://ui-avatars.com/api/?name=<%= contact.name %>&background=random&size=300">
+                 src="https://ui-avatars.com/api/?name=<%= contact.name %>&background=random&size=300">
 
             <div class="card-content">
                 <div class="contact-name"><%= contact.name %></div>
@@ -263,14 +229,9 @@ main {
                     <a href="tel:<%= contact.phone %>" class="btn btn-primary">📞 Call</a>
                     <a href="mailto:<%= contact.email %>" class="btn">✉ Email</a>
                     <a href="/contacts/<%= contact.id %>" class="btn">👁 Details</a>
-
-                    <!-- Block -->
-                    <button class="btn btn-danger"
-                        onclick="blockContact('<%= contact.name %>')">
-                        🚫 Block
-                    </button>
                 </div>
             </div>
+
         </article>
         <% }) %>
     </div>
@@ -280,21 +241,23 @@ main {
 <%- include('../partials/footer') %>
 
 <script>
-function exportContacts() {
-    alert("Export feature will be added later 🙂");
+function toggleMenu(e, id) {
+    e.stopPropagation();
+
+    document.querySelectorAll('.menu-dropdown')
+        .forEach(m => m.style.display = 'none');
+
+    document.getElementById('menu-' + id).style.display = 'block';
 }
 
-function downloadContacts() {
-    alert("Download feature will be added later 🙂");
-}
-
-function importContacts() {
-    alert("Import feature will be added later 🙂");
-}
+document.addEventListener('click', () => {
+    document.querySelectorAll('.menu-dropdown')
+        .forEach(m => m.style.display = 'none');
+});
 
 function blockContact(name) {
     if (confirm(`Are you sure you want to block ${name}?`)) {
-        alert(name + " has been blocked (backend later 😄)");
+        alert(name + " blocked (backend later 😄)");
     }
 }
 </script>

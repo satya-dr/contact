@@ -116,44 +116,52 @@
 
 <main>
     <div class="form-card">
-        <h1>Create New Contact</h1>
+        <h1><%= editing ? 'Edit Contact Details' : 'Create New Contact' %></h1>
 
-        <form action="/admin/add-contact" method="POST">
+        <form action="/admin/<%= editing ? 'edit-contact' : 'add-contact' %>" method="POST">
 
-            <!-- Name (Required) -->
+  <% if (editing) { %>
+    <input type="hidden" name="id" value="<%= contact.id %>">
+  <% } %>
+
             <div class="form-control">
                 <label for="name">Full Name *</label>
-                <input type="text" name="name" id="name" placeholder="Ex: Rahul Roy" required>
+                <input type="text" name="name" id="name" 
+                       value="<%= editing ? contact.name : '' %>"
+                       placeholder="Ex: Rahul Roy" required>
             </div>
 
-            <!-- Phone (Required) -->
             <div class="form-control">
                 <label for="phone">Phone Number *</label>
-                <input type="text" name="phone" id="phone" placeholder="Ex: +91 98765 43210" required>
+                <input type="text" name="phone" id="phone" 
+                       value="<%= editing ? contact.phone : '' %>"
+                       placeholder="Ex: +91 98765 43210" required>
             </div>
 
-            <!-- Email (Optional) -->
             <div class="form-control">
                 <label for="email">Email Address</label>
-                <input type="email" name="email" id="email" placeholder="Ex: rahul@example.com">
+                <input type="email" name="email" id="email" 
+                       value="<%= editing ? contact.email : '' %>"
+                       placeholder="Ex: rahul@example.com">
                 <div class="hint">Optional</div>
             </div>
 
-            <!-- Date of Birth (Optional) -->
             <div class="form-control">
                 <label for="dob">Date of Birth</label>
-                <input type="date" name="dob" id="dob">
+                <input type="date" name="dob" id="dob"
+                       value="<%= editing ? contact.dob : '' %>">
                 <div class="hint">Optional</div>
             </div>
 
-            <!-- Address (Optional) -->
             <div class="form-control">
                 <label for="address">Address</label>
-                <textarea name="address" id="address" placeholder="Enter address"></textarea>
+                <textarea name="address" id="address" placeholder="Enter address"><%= editing ? contact.address : '' %></textarea>
                 <div class="hint">Optional</div>
             </div>
 
-            <button type="submit">Save Contact</button>
+            <button type="submit">
+                <%= editing ? 'Update Contact' : 'Save Contact' %>
+            </button>
         </form>
 
         <a href="/" class="back-link">← Cancel and go back</a>

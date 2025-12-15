@@ -1,0 +1,146 @@
+<%- include('../partials/head') %>
+
+<style>
+:root{
+  --primary:#2563eb;
+  --primary-dark:#1e40af;
+  --bg:#f3f4f6;
+  --card:#ffffff;
+  --text:#1f2937;
+  --muted:#6b7280;
+  --border:#e5e7eb;
+}
+
+body{
+  margin:0;
+  font-family:'Segoe UI',sans-serif;
+  background:var(--bg);
+  color:var(--text);
+}
+
+.auth-container{
+  min-height:100vh;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:20px;
+}
+
+.auth-card{
+  background:var(--card);
+  width:100%;
+  max-width:420px;
+  padding:32px 30px;
+  border-radius:18px;
+  box-shadow:0 15px 30px rgba(0,0,0,.1);
+}
+
+.auth-header{
+  text-align:center;
+  margin-bottom:24px;
+}
+
+.auth-header h2{
+  font-size:1.9rem;
+  font-weight:800;
+  margin-bottom:6px;
+}
+
+.auth-header p{
+  color:var(--muted);
+  font-size:.9rem;
+}
+
+.form-group{
+  margin-bottom:18px;
+}
+
+label{
+  display:block;
+  font-size:.85rem;
+  font-weight:600;
+  margin-bottom:6px;
+}
+
+input{
+  width:100%;
+  padding:12px 14px;
+  border-radius:10px;
+  border:1px solid var(--border);
+  font-size:.95rem;
+}
+
+input:focus{
+  outline:none;
+  border-color:var(--primary);
+  background:#f8fbff;
+}
+
+.auth-btn{
+  width:100%;
+  padding:12px;
+  border-radius:12px;
+  border:none;
+  background:var(--primary);
+  color:#fff;
+  font-size:1rem;
+  font-weight:700;
+  cursor:pointer;
+}
+
+.auth-btn:hover{
+  background:var(--primary-dark);
+}
+
+.auth-footer{
+  text-align:center;
+  margin-top:20px;
+  font-size:.85rem;
+}
+
+.auth-footer a{
+  color:var(--primary);
+  font-weight:600;
+  text-decoration:none;
+}
+</style>
+
+</head>
+<body>
+
+<%- include('../partials/nav') %>
+
+<div class="auth-container">
+  <div class="auth-card">
+
+    <div class="auth-header">
+      <h2>Welcome Back 👋</h2>
+      <p>Login to manage your contacts</p>
+    </div>
+
+    <form action="/login" method="POST">
+      <div class="form-group">
+        <label>Email Address</label>
+        <input type="email" name="email" required placeholder="you@example.com">
+      </div>
+
+      <div class="form-group">
+        <label>Password</label>
+        <input type="password" name="password" required placeholder="••••••••">
+      </div>
+
+      <button type="submit" class="auth-btn">
+        Login
+      </button>
+    </form>
+
+    <div class="auth-footer">
+      Don’t have an account?
+      <a href="/signup">Create one</a>
+    </div>
+
+  </div>
+</div>
+
+</body>
+</html>

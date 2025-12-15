@@ -1,7 +1,6 @@
 <%- include('../partials/head') %>
 
 <style>
-/* ===== Root ===== */
 :root {
   --primary: #2563eb;
   --primary-dark: #1e40af;
@@ -18,14 +17,12 @@ body {
   color: var(--text-dark);
 }
 
-/* ===== Container ===== */
 .fav-container {
   max-width: 1200px;
   margin: 40px auto 60px;
   padding: 0 20px;
 }
 
-/* ===== Header ===== */
 .fav-header {
   text-align: center;
   margin-bottom: 32px;
@@ -43,21 +40,19 @@ body {
   font-size: .9rem;
 }
 
-/* ===== Grid ===== */
 .fav-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
   gap: 20px;
 }
 
-/* ===== Card ===== */
 .fav-card {
   background: white;
   border-radius: 18px;
   overflow: hidden;
   box-shadow: var(--card-shadow);
   transition: .25s ease;
-  position: relative; /* important for remove button */
+  position: relative;
 }
 
 .fav-card:hover {
@@ -65,16 +60,19 @@ body {
   box-shadow: 0 16px 30px rgba(0,0,0,.12);
 }
 
-/* ===== Remove Button ===== */
-.remove-btn {
+.remove-form {
   position: absolute;
   top: 10px;
   right: 10px;
+  z-index: 5;
+}
+
+.remove-btn {
   background: #fee2e2;
   color: #dc2626;
   border: none;
-  width: 30px;
-  height: 30px;
+  width: 32px;
+  height: 32px;
   border-radius: 50%;
   cursor: pointer;
   font-size: 1rem;
@@ -88,14 +86,12 @@ body {
   transform: scale(1.1);
 }
 
-/* ===== Avatar ===== */
 .fav-avatar img {
   width: 100%;
   height: 150px;
   object-fit: cover;
 }
 
-/* ===== Content ===== */
 .fav-content {
   padding: 14px 16px 16px;
 }
@@ -106,7 +102,6 @@ body {
   margin-bottom: 6px;
 }
 
-/* ===== Info ===== */
 .fav-info {
   font-size: .85rem;
   color: var(--text-light);
@@ -117,7 +112,6 @@ body {
   margin: 3px 0;
 }
 
-/* ===== Actions ===== */
 .fav-actions {
   display: flex;
 }
@@ -139,7 +133,6 @@ body {
   background: var(--primary-dark);
 }
 
-/* ===== Empty ===== */
 .fav-empty {
   text-align: center;
   margin-top: 100px;
@@ -173,13 +166,6 @@ body {
 .fav-empty a:hover {
   background: var(--primary-dark);
 }
-
-/* ===== Responsive ===== */
-@media (max-width: 600px) {
-  .fav-header h2 {
-    font-size: 1.9rem;
-  }
-}
 </style>
 </head>
 
@@ -200,19 +186,20 @@ body {
 
         <div class="fav-card">
 
-          <!-- Remove (frontend/demo) -->
-          <button class="remove-btn" title="Remove from favourites">
-            ✕
-          </button>
+          <form class="remove-form"
+                action="/remove-favourite"
+                method="POST"
+                onsubmit="return confirm('Remove this contact from favourites?');">
+            <input type="hidden" name="contactId" value="<%= contact.id %>">
+            <button type="submit" class="remove-btn">✖</button>
+          </form>
 
-          <!-- Avatar -->
           <div class="fav-avatar">
             <img
               src="https://ui-avatars.com/api/?name=<%= contact.name %>&background=random&size=300"
               alt="<%= contact.name %>">
           </div>
 
-          <!-- Content -->
           <div class="fav-content">
             <h3><%= contact.name %></h3>
 

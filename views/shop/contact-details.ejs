@@ -17,14 +17,12 @@ body{
   color:var(--text);
 }
 
-/* ===== Layout ===== */
 main{
   max-width:800px;
   margin:3rem auto;
   padding:1rem;
 }
 
-/* ===== Card ===== */
 .profile-card{
   background:var(--card);
   border-radius:14px;
@@ -38,7 +36,6 @@ main{
   to{opacity:1; transform:none;}
 }
 
-/* ===== Header ===== */
 .profile-header{
   padding:24px;
   display:flex;
@@ -67,12 +64,10 @@ main{
   color:var(--muted);
 }
 
-/* ===== Favourite ===== */
 .favorite-form{
   margin-left:auto;
 }
 
-/* ===== Body ===== */
 .profile-body{
   padding:24px;
   display:grid;
@@ -95,7 +90,6 @@ main{
   margin-bottom:4px;
 }
 
-/* ===== Actions ===== */
 .profile-actions{
   padding:20px 24px;
   border-top:1px solid var(--border);
@@ -141,12 +135,24 @@ main{
   background:#fecaca;
 }
 
-/* ===== Responsive ===== */
 @media(max-width:640px){
   .profile-body{
     grid-template-columns:1fr;
   }
 }
+.btn-block {
+  background: #fff1f2;
+  border: 1px solid #fecaca;
+  color: #dc2626;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.btn-block:hover {
+  background: #fecaca;
+}
+
 </style>
 </head>
 
@@ -156,7 +162,6 @@ main{
 <main>
   <div class="profile-card">
 
-    <!-- Header -->
     <div class="profile-header">
       <img
         class="avatar"
@@ -169,11 +174,9 @@ main{
         <p>Saved Contact</p>
       </div>
 
-      <!-- Favourite -->
       <%- include('../partials/favourite', { contact: contact }) %>
     </div>
 
-    <!-- Body -->
     <div class="profile-body">
       <div class="field">
         <span>Phone</span>
@@ -200,19 +203,39 @@ main{
       <% } %>
     </div>
 
-    <!-- Actions -->
     <div class="profile-actions">
-      <a href="tel:<%= contact.phone %>" class="btn btn-primary">📞 Call</a>
+  <a href="tel:<%= contact.phone %>" class="btn btn-primary">📞 Call</a>
 
-      <% if (contact.email) { %>
-        <a href="mailto:<%= contact.email %>" class="btn">✉ Email</a>
-      <% } %>
+  <% if (contact.email) { %>
+    <a href="mailto:<%= contact.email %>" class="btn">✉ Email</a>
+  <% } %>
 
-      <a href="/" class="btn">⬅ Back</a>
-      <a href="#" class="btn btn-danger">🚫 Block</a>
-    </div>
+  <a href="/" class="btn">⬅ Back</a>
 
-  </div>
+  <a href="/admin/edit-contact/<%= contact.id %>?editing=true"
+     class="btn btn-danger">
+     ✏ Edit
+  </a>
+
+  <form action="/admin/delete-contact/<%= contact.id %>"
+        method="POST"
+        onsubmit="return confirm('Are you sure you want to delete this contact?');"
+        style="display:inline;">
+    <button type="submit" class="btn btn-danger">
+      🗑 Delete
+    </button>
+  </form>
+
+  <form action="/admin/block-contact/<%= contact.id %>"
+        method="POST"
+        onsubmit="return confirm('Block this contact?');"
+        style="display:inline;">
+    <button type="submit" class="btn btn-block">
+      🚫 Block
+    </button>
+  </form>
+</div>
+
 </main>
 
 <%- include('../partials/footer') %>

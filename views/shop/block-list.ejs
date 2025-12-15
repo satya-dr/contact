@@ -1,0 +1,228 @@
+<%- include('../partials/head') %>
+
+<style>
+:root {
+  --primary: #2563eb;
+  --danger: #dc2626;
+  --bg: #f3f4f6;
+  --card: #ffffff;
+  --text-dark: #1f2937;
+  --text-light: #6b7280;
+  --border: #e5e7eb;
+  --shadow: 0 10px 25px rgba(0,0,0,.08);
+}
+
+body {
+  margin: 0;
+  font-family: "Segoe UI", sans-serif;
+  background: var(--bg);
+  color: var(--text-dark);
+}
+
+.block-container {
+  max-width: 1200px;
+  margin: 40px auto 60px;
+  padding: 0 20px;
+}
+
+.block-header {
+  text-align: center;
+  margin-bottom: 32px;
+}
+
+.block-header h2 {
+  font-size: 2.2rem;
+  font-weight: 800;
+  color: var(--danger);
+}
+
+.block-header p {
+  margin-top: 4px;
+  color: var(--text-light);
+  font-size: .9rem;
+}
+
+.block-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 22px;
+}
+
+.block-card {
+  background: var(--card);
+  border-radius: 18px;
+  box-shadow: var(--shadow);
+  overflow: hidden;
+  position: relative;
+  transition: .25s ease;
+}
+
+.block-card:hover {
+  transform: translateY(-5px);
+}
+
+.block-avatar img {
+  width: 100%;
+  height: 150px;
+  object-fit: cover;
+  filter: grayscale(100%);
+}
+
+.block-content {
+  padding: 14px 16px 18px;
+}
+
+.block-content h3 {
+  font-size: 1.1rem;
+  font-weight: 700;
+  margin-bottom: 6px;
+}
+
+.block-info {
+  font-size: .85rem;
+  color: var(--text-light);
+  margin-bottom: 14px;
+}
+
+.block-info p {
+  margin: 3px 0;
+}
+
+.block-actions {
+  display: flex;
+  gap: 8px;
+}
+
+.block-actions button,
+.block-actions a {
+  flex: 1;
+  padding: 8px;
+  border-radius: 12px;
+  font-size: .8rem;
+  font-weight: 600;
+  border: none;
+  cursor: pointer;
+}
+
+.block-actions .disabled {
+  background: #e5e7eb;
+  color: #9ca3af;
+  cursor: not-allowed;
+}
+
+.unblock-btn {
+  background: #dcfce7;
+  color: #166534;
+}
+
+.unblock-btn:hover {
+  background: #bbf7d0;
+}
+
+.block-empty {
+  text-align: center;
+  margin-top: 100px;
+}
+
+.block-empty .emoji {
+  font-size: 3.5rem;
+  margin-bottom: 10px;
+}
+
+.block-empty h3 {
+  font-size: 1.8rem;
+  margin-bottom: 6px;
+}
+
+.block-empty p {
+  color: var(--text-light);
+  margin-bottom: 22px;
+}
+
+.block-empty a {
+  display: inline-block;
+  background: var(--primary);
+  color: white;
+  padding: 10px 24px;
+  border-radius: 14px;
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.block-empty a:hover {
+  background: #1e40af;
+}
+</style>
+</head>
+
+<body>
+<%- include('../partials/nav') %>
+
+<main class="block-container">
+
+  <div class="block-header">
+    <h2>🚫 Blocked Contacts</h2>
+    <p>Contacts you have blocked will appear here</p>
+  </div>
+
+  <% if (contacts.length > 0) { %>
+
+    <div class="block-grid">
+      <% contacts.forEach(contact => { %>
+
+        <div class="block-card">
+
+          <div class="block-avatar">
+            <img
+              src="https://ui-avatars.com/api/?name=<%= contact.name %>&background=random&size=300"
+              alt="<%= contact.name %>">
+          </div>
+
+          <div class="block-content">
+            <h3><%= contact.name %></h3>
+
+            <div class="block-info">
+              <p>📞 <%= contact.phone %></p>
+              <% if (contact.email) { %>
+                <p>✉ <%= contact.email %></p>
+              <% } %>
+            </div>
+
+            <div class="block-actions">
+
+              <button class="disabled">📞 Call</button>
+              <button class="disabled">✉ Email</button>
+
+              <form action="/admin/unblock-contact/<%= contact.id %>"
+                    method="POST"
+                    onsubmit="return confirm('Unblock this contact?');">
+                <button type="submit" class="unblock-btn">
+                  🔓 Unblock
+                </button>
+              </form>
+
+            </div>
+          </div>
+
+        </div>
+
+      <% }) %>
+    </div>
+
+  <% } else { %>
+
+    <div class="block-empty">
+      <div class="emoji">😴</div>
+      <h3>No Blocked Contacts</h3>
+      <p>You haven’t blocked anyone yet</p>
+      <a href="/">Go to Contacts</a>
+    </div>
+
+  <% } %>
+
+</main>
+
+<%- include('../partials/footer') %>
+
+</body>
+</html>
